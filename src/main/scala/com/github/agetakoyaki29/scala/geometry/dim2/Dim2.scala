@@ -37,7 +37,7 @@ abstract class Dim2(val x: Double, val y: Double) {
     validateElement(y)
   }
 
-  protected def validateElement(d: Double): Unit = NotNaN orElse NotMinValue orElse AllDouble apply d
+  protected def validateElement(d: Double): Unit = NotNaN orElse NotMinPositiveValue orElse AllDouble apply d
 
   // ----
 

@@ -25,11 +25,11 @@ class DoubleTest extends WordSpec {
   }
   
   "Double.MinPositiveValue" should {
-    "produce IllegalArgumentException thr Delta.NotMinPositiveValue" in {
-      intercept[IllegalArgumentException] {
-        Delta.NotMinPositiveValue(Double.MinPositiveValue)
-      }
-    }
+//    "produce IllegalArgumentException thr Delta.NotMinPositiveValue" in {
+//      intercept[IllegalArgumentException] {
+//        Delta.NotMinPositiveValue(Double.MinPositiveValue)
+//      }
+//    }
     "Four arithmetic operations1" in {
       assert((Double.MinPositiveValue + 2.1) === 2.1)
       assert((Double.MinPositiveValue + 3.2) === 3.2)

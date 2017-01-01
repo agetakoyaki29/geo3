@@ -48,7 +48,10 @@ abstract class Dim2(val x: Double, val y: Double) {
 
   @UpRet
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))
+  @UpRet
   def zipmap(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
+  
+  def reduceLeft(f: (Double, Double) => Double): Double = f(x, y)
   
   // -- std --
 

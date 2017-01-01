@@ -1,7 +1,9 @@
 package com.github.agetakoyaki29.scala.geometry.dim2
 
-import com.github.agetakoyaki29.scala.geometry.Delta._
 import scala.reflect.ClassTag
+
+import com.github.agetakoyaki29.scala.sameret.UpRet
+import com.github.agetakoyaki29.scala.geometry.Delta._
 
 
 abstract class Dim2Factory[T <: Dim2 : ClassTag] {
@@ -44,6 +46,7 @@ abstract class Dim2(val x: Double, val y: Double) {
   def isZero: Boolean = x==0 && y==0
   def isInfinite = x.isInfinite || y.isInfinite
 
+  @UpRet
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))
   def zipmap(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
   

@@ -15,15 +15,13 @@ abstract class Dim2Factory[T <: Dim2 : ClassTag] {
 
 
 object Dim2 extends Dim2Factory[Dim2] {
-  class SimpleDim2 private[Dim2] (val x: Double, val y: Double) extends Dim2
+  class SimpleDim2 private[Dim2] (x: Double, y: Double) extends Dim2(x, y)
   
   def apply(x: Double, y: Double): Dim2 = new SimpleDim2(x, y)
 }
 
 
-abstract class Dim2 {
-  def x: Double
-  def y: Double
+abstract class Dim2(val x: Double, val y: Double) {
 
   // -- validate --
 

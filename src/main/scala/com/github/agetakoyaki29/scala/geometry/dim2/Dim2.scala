@@ -45,10 +45,22 @@ abstract class Dim2 {
 
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))
   def zipmap(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
+  
+  // -- std --
+
+  override def toString = this.getClass.getSimpleName + s"(${x}, ${y})"
+
+  override def equals(op: Any) = op match {
+    case dim2: Dim2 => x==dim2.x && y==dim2.y
+    case _ => false
+  }
+
+  override def hashCode = x.## * 31 + y.##  // TODO Provisional
 
   // -- IndexedSeq --
 
   def foreach[U](f: Double => U): Unit = { f(x); f(y) }
   def apply(idx: Int): Double = idx match { case 0 => x; case 1 => y }
   def length: Int = 2
+  
 }

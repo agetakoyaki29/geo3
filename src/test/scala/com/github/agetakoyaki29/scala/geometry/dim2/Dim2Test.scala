@@ -22,11 +22,18 @@ class Dim2Test extends WordSpec {
         }
       }
     }
+    
+    "Dim2.ZERO" should {
+      "isZero" in {
+        assert(Dim2.ZERO.isZero)
+      }
+    }
+    
+    "Dim2.INFINITY" should {
+      "isInfinite" in {
+        assert(Dim2.INFINITY.isInfinite)
+      }
+    }
   }
   
-//  "A Dim2" when {
-//    "have NaN Element" shoud {
-//      "produce NoSuchElementException when" in (pending)
-//    }
-//  }
 }

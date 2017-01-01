@@ -18,6 +18,9 @@ object Dim2 extends Dim2Factory[Dim2] {
   class SimpleDim2 private[Dim2] (x: Double, y: Double) extends Dim2(x, y)
   
   def apply(x: Double, y: Double): Dim2 = new SimpleDim2(x, y)
+  
+  val ZERO = this(0, 0)
+  val INFINITY = this(Double.PositiveInfinity, Double.PositiveInfinity)
 }
 
 

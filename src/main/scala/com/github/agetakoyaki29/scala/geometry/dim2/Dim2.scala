@@ -45,6 +45,8 @@ abstract class Dim2(val x: Double, val y: Double) {
 
   final def isZero: Boolean = x==0 && y==0
   final def isInfinite = x.isInfinite || y.isInfinite
+  
+//	def same(op: Dim2): Boolean = Delta.eq(x, op.x) && Delta.eq(y, op.y)
 
   @UpRet
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))

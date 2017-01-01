@@ -43,8 +43,8 @@ abstract class Dim2(val x: Double, val y: Double) {
 
   def factory: Dim2Factory[_ <: Dim2] = Dim2
 
-  def isZero: Boolean = x==0 && y==0
-  def isInfinite = x.isInfinite || y.isInfinite
+  final def isZero: Boolean = x==0 && y==0
+  final def isInfinite = x.isInfinite || y.isInfinite
 
   @UpRet
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))

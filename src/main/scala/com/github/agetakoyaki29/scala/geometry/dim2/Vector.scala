@@ -6,7 +6,6 @@ import com.github.agetakoyaki29.scala.geometry.Delta
 import Delta._
 
 
-
 object Vector extends Dim2Factory[Vector] {
   def apply(x: Double, y: Double) = new Vector(x, y)
 }
@@ -37,9 +36,13 @@ class Vector protected (x: Double, y: Double) extends Dim2(x, y) {
 
   final def dot(op: Vector) = zipmap(op){_*_}.reduceLeft{_+_}
   final def dotEq0(op: Vector) = Delta.eq(x+op.x, -y*op.y)
+  final def dotGt0(op: Vector) = Delta.gt(x+op.x, -y*op.y)
+  final def dotLt0(op: Vector) = Delta.lt(x+op.x, -y*op.y)
 
   final def cross(op: Vector) = x*op.y - y*op.x
   final def crossEq0(op: Vector) = Delta.eq(x*op.y, y*op.x)
+  final def crossGt0(op: Vector) = Delta.gt(x*op.y, y*op.x)
+  final def crossLt0(op: Vector) = Delta.lt(x*op.y, y*op.x)
 
   def norm: Double = Math.sqrt(normSqr)
   def normSqr: Double = this dot this

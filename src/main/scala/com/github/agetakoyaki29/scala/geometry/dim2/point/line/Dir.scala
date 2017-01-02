@@ -59,8 +59,8 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   // def isIntersect(line: Line): Boolean = !(this parallel line.dir)
 
-  // def inRegion1(pt: Point) = Delta.gt(this dot pt, 0)
-  // def inRegion2(pt: Point) = Delta.gt(-this dot pt-this, 0)
+  def inRegion1(pt: Point) = this dotGt0 pt
+  def inRegion2(pt: Point) = -this dotGt0 pt-this
 
   // ----
 

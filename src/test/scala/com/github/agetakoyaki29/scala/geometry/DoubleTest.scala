@@ -32,12 +32,7 @@ class DoubleTest extends WordSpec {
 
   "Delta.eq" in {
     assert(Delta.eq(3.3, 3.30))
-  }
-  "Delta.eq0 err" in {
-    Delta.eq0(1d, 3)
-    intercept[UnsupportedOperationException] {
-      Delta.eq0(0d)
-    }
+    assert(Delta.eq0(1d, 3))
   }
 
   "Double.NaN" should {

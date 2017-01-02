@@ -32,6 +32,12 @@ object Delta {
   val NotZero: PartialFunction[Double, Double] = {
     case d if d == 0 => throw new IllegalArgumentException("Not Zero")
   }
+  val NotPlus: PartialFunction[Double, Double] = {
+    case d if d > 0 => throw new IllegalArgumentException("Not Plus")
+  }
+  val NotMinus: PartialFunction[Double, Double] = {
+    case d if d < 0 => throw new IllegalArgumentException("Not Minus")
+  }
   val AllDouble: PartialFunction[Double, Double] = { case d => d }
 
 }

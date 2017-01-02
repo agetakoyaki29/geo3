@@ -2,6 +2,8 @@ package com.github.agetakoyaki29.scala.geometry
 
 import org.scalatest.WordSpec
 
+import com.github.agetakoyaki29.scala.geometry.Delta._
+
 
 class DoubleTest extends WordSpec {
 
@@ -27,6 +29,16 @@ class DoubleTest extends WordSpec {
   ipcilonTest(-311.56)
   ipcilonTest(12400.01)
   // ipcilonTest(Double.MinPositiveValue)
+
+  "Delta.eq" in {
+    assert(Delta.eq(3.3, 3.30))
+  }
+  "Delta.eq0 err" in {
+    Delta.eq0(1d, 3)
+    intercept[UnsupportedOperationException] {
+      Delta.eq0(0d)
+    }
+  }
 
   "Double.NaN" should {
     "produce IllegalArgumentException thr Delta.NotNaN" in {

@@ -4,7 +4,30 @@ import org.scalatest.WordSpec
 
 
 class DoubleTest extends WordSpec {
-  
+
+  "produce IllegalArgumentException" in {
+    intercept[IllegalArgumentException] {
+      Delta.ipsilon(Double.NaN)
+    }
+    intercept[IllegalArgumentException] {
+      Delta.ipsilon(Double.PositiveInfinity)
+    }
+  }
+  def ipcilonTest(d: Double) = {
+    "ipsilon("+d+") is positive" in {
+      assert(Delta.ipsilon(d) > 0)
+    }
+    "not equal add Delta.ipsilon("+d+")" in {
+      assert(d !== d + Delta.ipsilon(d))
+    }
+    "equal add Delta.ipsilon("+d+") / 2" in {
+      assert(d === d + Delta.ipsilon(d) / 2)
+    }
+  }
+  ipcilonTest(-311.56)
+  ipcilonTest(12400.01)
+  // ipcilonTest(Double.MinPositiveValue)
+
   "Double.NaN" should {
     "produce IllegalArgumentException thr Delta.NotNaN" in {
       intercept[IllegalArgumentException] {
@@ -23,7 +46,7 @@ class DoubleTest extends WordSpec {
       assert((6 / Double.NaN).isNaN)
     }
   }
-  
+
   "Double.MinPositiveValue" should {
 //    "produce IllegalArgumentException thr Delta.NotMinPositiveValue" in {
 //      intercept[IllegalArgumentException] {
@@ -45,7 +68,7 @@ class DoubleTest extends WordSpec {
       assert((54.4 / Double.MinPositiveValue) === Double.PositiveInfinity)
     }
   }
-  
+
   "Infinity" should {
     "produce IllegalArgumentException thr Delta.NotInfinite" in {
       intercept[IllegalArgumentException] {
@@ -72,7 +95,7 @@ class DoubleTest extends WordSpec {
       assert((6.23  / Double.NegativeInfinity) === 0d)
     }
   }
-  
+
   "0.0d" should {
     "produce IllegalArgumentException thr Delta.NotZero" in {
       intercept[IllegalArgumentException] {
@@ -84,5 +107,5 @@ class DoubleTest extends WordSpec {
       assert((-2.4 / 0d) === Double.NegativeInfinity)
     }
   }
-  
+
 }

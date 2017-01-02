@@ -1,4 +1,4 @@
-package com.github.agetakoyaki29.scala.geometry.dim2.line
+package com.github.agetakoyaki29.scala.geometry.dim2.point.line
 
 import com.github.agetakoyaki29.scala.sameret.SameRet
 import com.github.agetakoyaki29.scala.sameret.UpRet

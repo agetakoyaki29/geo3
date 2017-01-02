@@ -16,7 +16,7 @@ object Dir extends Dim2Factory[Dir] {
 
 
 @SameRet
-class Dir protected (x: Double, y: Double) extends Vector(x, y) {
+class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   override def factory: Dim2Factory[_ <: Dir] = Dir
 
@@ -35,8 +35,8 @@ class Dir protected (x: Double, y: Double) extends Vector(x, y) {
    * distance, non abs
    * this sinTo pt * pt.norm
    */
-  def distance(pt: Point): Double = this cross pt / this.norm
-  def distanceSqr(pt: Point): Double = Math.pow(this cross pt, 2) / this.normSqr
+  override def distance(pt: Point): Double = this cross pt / this.norm
+  override def distanceSqr(pt: Point): Double = Math.pow(this cross pt, 2) / this.normSqr
 
   /**
    * nearest point

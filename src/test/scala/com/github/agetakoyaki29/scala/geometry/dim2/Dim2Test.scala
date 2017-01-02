@@ -14,26 +14,18 @@ class Dim2Test extends WordSpec {
         }
       }
     }
-    
-    "have MinValue Element" should {
-      "produce IllegalArgumentException when construct" in {
-        intercept[IllegalArgumentException] {
-          Dim2(Double.MinValue, 3.3)
-        }
-      }
-    }
-    
+
     "Dim2.ZERO" should {
       "isZero" in {
         assert(Dim2.ZERO.isZero)
       }
     }
-    
+
     "Dim2.INFINITY" should {
       "isInfinite" in {
         assert(Dim2.INFINITY.isInfinite)
       }
     }
   }
-  
+
 }

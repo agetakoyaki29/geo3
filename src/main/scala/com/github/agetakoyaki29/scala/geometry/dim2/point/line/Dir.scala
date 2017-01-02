@@ -32,6 +32,11 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   // ----
 
   /**
+   * (this sinTo pt) < 0
+   */
+  def contain(pt: Point): Boolean = this crossLt0 pt
+
+  /**
    * distance, non abs
    * this sinTo pt * pt.norm
    */

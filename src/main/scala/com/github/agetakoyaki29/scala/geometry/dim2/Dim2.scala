@@ -3,7 +3,8 @@ package com.github.agetakoyaki29.scala.geometry.dim2
 import scala.reflect.ClassTag
 
 import com.github.agetakoyaki29.scala.sameret.UpRet
-import com.github.agetakoyaki29.scala.geometry.Delta._
+import com.github.agetakoyaki29.scala.geometry.Delta
+import Delta._
 
 
 abstract class Dim2Factory[T <: Dim2 : ClassTag] {
@@ -18,9 +19,9 @@ abstract class Dim2Factory[T <: Dim2 : ClassTag] {
 
 object Dim2 extends Dim2Factory[Dim2] {
   class SimpleDim2 private[Dim2] (x: Double, y: Double) extends Dim2(x, y)
-  
+
   def apply(x: Double, y: Double): Dim2 = new SimpleDim2(x, y)
-  
+
   val ZERO = this(0, 0)
   val INFINITY = this(Double.PositiveInfinity, Double.PositiveInfinity)
 }
@@ -45,16 +46,16 @@ abstract class Dim2(val x: Double, val y: Double) {
 
   final def isZero: Boolean = x==0 && y==0
   final def isInfinite = x.isInfinite || y.isInfinite
-  
-//	def same(op: Dim2): Boolean = Delta.eq(x, op.x) && Delta.eq(y, op.y)
+
+	def same(op: Dim2): Boolean = Delta.eq(x, op.x) && Delta.eq(y, op.y)
 
   @UpRet
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))
   @UpRet
   def zipmap(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
-  
+
   def reduceLeft(f: (Double, Double) => Double): Double = f(x, y)
-  
+
   // -- std --
 
   override def toString = this.getClass.getSimpleName + s"(${x}, ${y})"
@@ -71,5 +72,5 @@ abstract class Dim2(val x: Double, val y: Double) {
   def foreach[U](f: Double => U): Unit = { f(x); f(y) }
   def apply(idx: Int): Double = idx match { case 0 => x; case 1 => y }
   def length: Int = 2
-  
+
 }

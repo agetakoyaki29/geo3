@@ -34,6 +34,9 @@ class Point protected (x: Double, y: Double) extends Vector(x, y) with Trans[Poi
 
   override def mapD2(f: Double => Double) = factory(super.mapD2(f))
   override def zipmap(op: Dim2)(f: (Double, Double) => Double) = factory(super.zipmap(op)(f))
+  override def updated(x: Double, y: Double) = factory(super.updated(x, y))
+  override def updatedX(x: Double) = factory(super.updatedX(x))
+  override def updatedY(y: Double) = factory(super.updatedY(y))
 
   override def abs = factory(super.abs)
   override def unary_+() = factory(super.unary_+)

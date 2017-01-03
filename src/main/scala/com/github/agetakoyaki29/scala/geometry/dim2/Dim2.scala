@@ -56,6 +56,13 @@ abstract class Dim2(val x: Double, val y: Double) {
 
   def reduceLeft(f: (Double, Double) => Double): Double = f(x, y)
 
+  @UpRet
+  def updated(x: Double, y: Double): Dim2 = factory(x, y)
+  @UpRet
+  def updatedX(x: Double): Dim2 = factory(x, y)
+  @UpRet
+  def updatedY(y: Double): Dim2 = factory(x, y)
+
   // -- std --
 
   override def toString = this.getClass.getSimpleName + s"(${x}, ${y})"

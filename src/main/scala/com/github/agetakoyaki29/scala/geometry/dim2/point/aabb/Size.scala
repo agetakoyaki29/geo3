@@ -13,8 +13,8 @@ import Delta._
 object Size extends Dim2Factory[Size] {
   def apply(x: Double, y: Double) = new Size(x, y)
 
-  val POINT = ???
-  val INFINITY = ???
+  val POINT = this(Dim2.ZERO)
+  val INFINITY = this(Double.PositiveInfinity, Double.PositiveInfinity)
 }
 
 
@@ -29,19 +29,51 @@ class Size protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
-  def contain(pt: Point) = {
-    gt(0, pt.x) && gt(pt.x, x) &&
-    gt(0, pt.y) && gt(pt.y, y)
+  def leftup = Point.ORIGIN
+  def leftdown = Point(0, y)
+  def rightup = Point(x, 0)
+  def rightdown = Point(this)
+  def center = Point(this/2)
+
+  // ----
+
+  def contain(pt: Point) = containX(pt.x) && containY(pt.y)
+
+  def containX(d: Double) = gt(0, d) && gt(d, x)
+  def containY(d: Double) = gt(0, d) && gt(d, y)
+
+  override def distanceSqr(pt: Point): Double = Math.pow(distance, 2)
+  override def distance(pt: Point): Double = {
+    val (cx, cy) = (containX(pt.x), containY(pt.y))
+    val (sx, sy) = {
+      val sign = pt localizedBy center
+      (sign.x <= 0, sign.y <= 0)
+    }
+    val (nx, ny) = (if(sx) 0 else x, if(sy) 0 else y)
+    val (dx, dy) = (if(sx) 0-pt.x else pt.x-x, if(sy) 0-pt.y else pt.y-y)
+
+    ??? // XXX
   }
 
-  override def distance(pt: Point): Double = ???
-  override def distanceSqr(pt: Point): Double = ???
+  def nearest(pt: Point): Point = {
+    val (cx, cy) = (containX(pt.x), containY(pt.y))
+    val (sx, sy) = {
+      val sign = pt localizedBy center
+      (sign.x <= 0, sign.y <= 0)
+    }
+    val (nx, ny) = (if(sx) 0 else x, if(sy) 0 else y)
 
-  def nearest(pt: Point): Point = ???
+    if(cx && cy) {
+      ??? // XXX
+    }
+    else if(cx) return pt.updatedY(ny)
+    else if(cy) return pt.updatedX(nx)
+    else return pt.updated(nx, ny)
+  }
 
   def through(pt: Point): Boolean = {
-    if(Delta.eq(pt.x, 0) || Delta.eq(pt.x, x)) gt(0, pt.y) && gt(pt.y, y)
-    else if(Delta.eq(pt.y, 0) || Delta.eq(pt.y, y)) gt(0, pt.x) && gt(pt.x, x)
+    if(Delta.eq(pt.x, 0) || Delta.eq(pt.x, x))  containY(pt.y)
+    else if(Delta.eq(pt.y, 0) || Delta.eq(pt.y, y)) containX(pt.x)
     else false
   }
 
@@ -49,6 +81,9 @@ class Size protected (x: Double, y: Double) extends Point(x, y) {
 
   override def mapD2(f: Double => Double) = factory(super.mapD2(f))
   override def zipmap(op: Dim2)(f: (Double, Double) => Double) = factory(super.zipmap(op)(f))
+  override def updated(x: Double, y: Double) = factory(super.updated(x, y))
+  override def updatedX(x: Double) = factory(super.updatedX(x))
+  override def updatedY(y: Double) = factory(super.updatedY(y))
 
   override def abs = factory(super.abs)
   override def unary_+() = factory(super.unary_+)

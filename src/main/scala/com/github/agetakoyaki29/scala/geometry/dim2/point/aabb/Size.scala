@@ -37,6 +37,12 @@ class Size protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
+  def through(pt: Point): Boolean = {
+    if(Delta.eq(pt.x, 0) || Delta.eq(pt.x, x))  containY(pt.y)
+    else if(Delta.eq(pt.y, 0) || Delta.eq(pt.y, y)) containX(pt.x)
+    else false
+  }
+
   def contain(pt: Point) = containX(pt.x) && containY(pt.y)
 
   def containX(d: Double) = lt(0, d) && lt(d, x)
@@ -69,12 +75,6 @@ class Size protected (x: Double, y: Double) extends Point(x, y) {
     else if(cx) return pt.updatedY(ny)
     else if(cy) return pt.updatedX(nx)
     else return pt.updated(nx, ny)
-  }
-
-  def through(pt: Point): Boolean = {
-    if(Delta.eq(pt.x, 0) || Delta.eq(pt.x, x))  containY(pt.y)
-    else if(Delta.eq(pt.y, 0) || Delta.eq(pt.y, y)) containX(pt.x)
-    else false
   }
 
   // ---- UpRet ----

@@ -13,13 +13,26 @@ import Delta._
 object Corner extends Dim2Factory[Corner] {
   def apply(x: Double, y: Double) = new Corner(x, y)
 
-  val POINT = new Corner(Dim2.ZERO)
-  val INFINITY = this(Double.PositiveInfinity, Double.PositiveInfinity)
+  val POINT = new Corner(Dim2.ZERO) {
+    override def through(pt: Point) = contain(pt)
+    override def contain(pt: Point) = pt same this
+    override def containX(d: Double) = Delta.eq(d, 0)
+    override def containY(d: Double) = Delta.eq(d, 0)
+    override def distance(pt: Point) = Point(this) distance pt
+    override def distanceSqr(pt: Point) = Point(this) distanceSqr pt
+    override def nearest(pt: Point) = Point(this)
+  }
+  val INFINITY = new Corner(Double.PositiveInfinity, Double.PositiveInfinity) {
+    override def contain(pt: Point) = true
+    override def containX(d: Double) = true
+    override def containY(d: Double) = true
+  }
 }
 
 
 @SameRet
 class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
+  def this(dim2: Dim2) = this(dim2.x, dim2.y)
 
   override def factory: Dim2Factory[_ <: Corner] = Corner
 
@@ -32,6 +45,12 @@ class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
   def center = Point.ORIGIN
 
   // ----
+
+  def through(pt: Point): Boolean = {
+    if(Delta.eq(pt.x.abs, x)) containY(pt.y)
+    else if(Delta.eq(pt.y.abs, y)) containX(pt.x)
+    else false
+  }
 
   def contain(pt: Point) = Seq(lt(pt.abs.x, x), lt(pt.abs.y, y)) reduceLeft {_&&_}
 
@@ -67,11 +86,9 @@ class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
     else return pt.updated(sx*x, sy*y)
   }
 
-  def through(pt: Point): Boolean = {
-    if(Delta.eq(pt.x.abs, x)) containY(pt.y)
-    else if(Delta.eq(pt.y.abs, y)) containX(pt.x)
-    else false
-  }
+  // ----
+
+  // def intersect
 
   // ---- UpRet ----
 

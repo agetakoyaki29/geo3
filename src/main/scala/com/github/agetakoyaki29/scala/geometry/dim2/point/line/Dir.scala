@@ -31,6 +31,11 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
+  def through(pt: Point): Boolean = this dotEq0 pt
+
+  def inRegion1(pt: Point) = this dotGt0 pt
+  def inRegion2(pt: Point) = -this dotGt0 pt-this
+
   /**
    * (this sinTo pt) < 0
    */
@@ -50,8 +55,6 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
    */
   def nearest(pt: Point): Point = Point(this * ((this dot pt) / this.normSqr / pt.norm))
 
-  def through(pt: Point): Boolean = this dotEq0 pt
-
   //
 
   def same(op: Dir): Boolean = this parallel op
@@ -63,9 +66,6 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   // def intersect(line: Line): Seq[Point] = {
 
   // def isIntersect(line: Line): Boolean = !(this parallel line.dir)
-
-  def inRegion1(pt: Point) = this dotGt0 pt
-  def inRegion2(pt: Point) = -this dotGt0 pt-this
 
   // ----
 

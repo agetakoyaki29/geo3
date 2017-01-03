@@ -40,4 +40,9 @@ object Delta {
   }
   val AllDouble: PartialFunction[Double, Double] = { case d => d }
 
+  implicit class PowDouble(it: Double) {
+    def ^(op: Double) = Math.pow(it, op)
+    def sqrt = Math.sqrt(it)
+  }
+
 }

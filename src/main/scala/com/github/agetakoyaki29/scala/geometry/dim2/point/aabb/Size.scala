@@ -39,29 +39,29 @@ class Size protected (x: Double, y: Double) extends Point(x, y) {
 
   def contain(pt: Point) = containX(pt.x) && containY(pt.y)
 
-  def containX(d: Double) = gt(0, d) && gt(d, x)
-  def containY(d: Double) = gt(0, d) && gt(d, y)
+  def containX(d: Double) = lt(0, d) && lt(d, x)
+  def containY(d: Double) = lt(0, d) && lt(d, y)
 
-  override def distanceSqr(pt: Point): Double = Math.pow(distance, 2)
+  override def distanceSqr(pt: Point): Double = Math.pow(distance(pt), 2)
   override def distance(pt: Point): Double = {
     val (cx, cy) = (containX(pt.x), containY(pt.y))
-    val (sx, sy) = {
+    val (mx, my) = {
       val sign = pt localizedBy center
       (sign.x <= 0, sign.y <= 0)
     }
-    val (nx, ny) = (if(sx) 0 else x, if(sy) 0 else y)
-    val (dx, dy) = (if(sx) 0-pt.x else pt.x-x, if(sy) 0-pt.y else pt.y-y)
+    val (nx, ny) = (if(mx) 0 else x, if(my) 0 else y)
+    val (dx, dy) = (if(mx) 0-pt.x else pt.x-x, if(my) 0-pt.y else pt.y-y)
 
     ??? // XXX
   }
 
   def nearest(pt: Point): Point = {
     val (cx, cy) = (containX(pt.x), containY(pt.y))
-    val (sx, sy) = {
+    val (mx, my) = {
       val sign = pt localizedBy center
       (sign.x <= 0, sign.y <= 0)
     }
-    val (nx, ny) = (if(sx) 0 else x, if(sy) 0 else y)
+    val (nx, ny) = (if(mx) 0 else x, if(my) 0 else y)
 
     if(cx && cy) {
       ??? // XXX

@@ -25,16 +25,16 @@ class Vector protected (x: Double, y: Double) extends Dim2(x, y) {
   def unary_-(): Vector = mapD2{-_}
 
   @UpRet
-  def +(op: Vector): Vector = zipmap(op){_+_}
+  def +(op: Vector): Vector = zipmapD2(op){_+_}
   @UpRet
-  def -(op: Vector): Vector = zipmap(op){_-_}
+  def -(op: Vector): Vector = zipmapD2(op){_-_}
 
   @UpRet
   def *(d: Double): Vector = mapD2{_*d}
   @UpRet
   def /(d: Double): Vector = mapD2{_/d}
 
-  final def dot(op: Vector) = zipmap(op){_*_}.reduceLeft{_+_}
+  final def dot(op: Vector) = zipmapD2(op){_*_}.reduceLeft{_+_}
   final def dotEq0(op: Vector) = Delta.eq(x+op.x, -y*op.y)
   final def dotGt0(op: Vector) = Delta.gt(x+op.x, -y*op.y)
   final def dotLt0(op: Vector) = Delta.lt(x+op.x, -y*op.y)
@@ -50,7 +50,7 @@ class Vector protected (x: Double, y: Double) extends Dim2(x, y) {
   // ---- UpRet ----
 
   override def mapD2(f: Double => Double) = factory(super.mapD2(f))
-  override def zipmap(op: Dim2)(f: (Double, Double) => Double) = factory(super.zipmap(op)(f))
+  override def zipmapD2(op: Dim2)(f: (Double, Double) => Double) = factory(super.zipmapD2(op)(f))
   override def updated(x: Double, y: Double) = factory(super.updated(x, y))
   override def updatedX(x: Double) = factory(super.updatedX(x))
   override def updatedY(y: Double) = factory(super.updatedY(y))

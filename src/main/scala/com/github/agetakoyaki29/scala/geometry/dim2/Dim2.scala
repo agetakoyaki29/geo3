@@ -52,9 +52,9 @@ abstract class Dim2(val x: Double, val y: Double) {
   @UpRet
   def mapD2(f: Double => Double): Dim2 = factory(f(x), f(y))
   @UpRet
-  def zipmap(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
+  def zipmapD2(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
 
-  def reduceLeft(f: (Double, Double) => Double): Double = f(x, y)
+  def reduceLeft[T](f: (Double, Double) => T): T = f(x, y)
 
   @UpRet
   def updated(x: Double, y: Double): Dim2 = factory(x, y)

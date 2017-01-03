@@ -44,7 +44,7 @@ class Vector protected (x: Double, y: Double) extends Dim2(x, y) {
   final def crossGt0(op: Vector) = Delta.gt(x*op.y, y*op.x)
   final def crossLt0(op: Vector) = Delta.lt(x*op.y, y*op.x)
 
-  def norm: Double = Math.sqrt(normSqr)
+  def norm: Double = normSqr.sqrt
   def normSqr: Double = this dot this
 
   // ---- UpRet ----

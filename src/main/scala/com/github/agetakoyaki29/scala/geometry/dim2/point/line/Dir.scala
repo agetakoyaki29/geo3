@@ -37,10 +37,10 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   def contain(pt: Point): Boolean = this crossLt0 pt
 
   /**
-   * distance, non abs
+   * distance
    * this sinTo pt * pt.norm
    */
-  override def distance(pt: Point): Double = this cross pt / this.norm
+  override def distance(pt: Point): Double = (this cross pt / this.norm).abs
   override def distanceSqr(pt: Point): Double = Math.pow(this cross pt, 2) / this.normSqr
 
   /**

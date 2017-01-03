@@ -17,7 +17,7 @@ class Vector protected (x: Double, y: Double) extends Dim2(x, y) {
   override def factory: Dim2Factory[_ <: Vector] = Vector
 
   @UpRet
-  def abs: Vector = mapD2 {Math.abs(_)}
+  def abs: Vector = mapD2{_.abs}
 
   @UpRet
   def unary_+(): Vector = factory(this)

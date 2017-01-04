@@ -40,12 +40,10 @@ class Dir2Test extends FunSuite {
    val t1 = Delta.eq(distance, distanceSqr)
    assert(t1)
  }
- 
+
  def nearestIsOn(dir: Dir, pt: Point) = {
    val near = dir.nearest(pt)
    val t1 = dir.through(near)
-   println(dir)
-   println(near)
    assert(t1)
  }
 
@@ -63,11 +61,9 @@ class Dir2Test extends FunSuite {
  def normalIsPlus90Degree(dir: Dir) = {
    val normal = dir.normalDir
    val angle = dir.angleTo(normal)
-   val normalized = mod(angle, 2*Math.PI)
-   assert(Delta.eq(Math.PI/2, normalized))
+   val chomped = Delta.chompAngle(angle)
+   assert(Delta.eq(Math.PI/2, chomped))
  }
-
- def mod(d1: Double, d2: Double) = (d1 % d2 + d2) % d2
 
  def testCosAngle(dir1: Dir, dir2: Dir) = {
    val deg = dir1 angleTo dir2

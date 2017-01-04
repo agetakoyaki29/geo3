@@ -14,13 +14,6 @@ object Dir extends Dim2Factory[Dir] {
   def apply(x: Double, y: Double) = new Dir(x, y)
 
   def angle(angle: Double) = this(Math.cos(angle), Math.sin(angle))
-
-  def chompAngle(angle: Double) = {
-    val na = angle % 2*Math.PI
-    if(na > Math.PI) na - 2*Math.PI
-    else if(na <= -Math.PI) na + 2*Math.PI
-    else na
-  }
 }
 
 

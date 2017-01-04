@@ -7,6 +7,18 @@ object Delta {
   val FRACTION_SIZE = 52
   val FRACTION_PRECISION = 53
 
+  // ----
+
+  def mod(d1: Double, d2: Double) = (d1 % d2 + d2) % d2
+
+  def chompAngle(angle: Double) = {
+    val na = mod(angle, 2*Math.PI)
+    if(na > Math.PI) na - 2*Math.PI
+    else na
+  }
+
+  // ----
+
   implicit val delta: Double = 1 / Math.pow(2, 50)
 
   def ipsilon(d: Double): Double = NotNaN orElse NotInfinite orElse AllDouble andThen
@@ -39,6 +51,8 @@ object Delta {
     case d if d < 0 => throw new IllegalArgumentException("Not Minus")
   }
   val AllDouble: PartialFunction[Double, Double] = { case d => d }
+
+  // ----
 
   implicit class PowDouble(it: Double) {
     def ^(op: Double) = Math.pow(it, op)

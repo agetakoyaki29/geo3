@@ -51,4 +51,8 @@ case class Line(sp: Point, dir: Dir) extends Trans[Line] {
   def cosTo(line: Line): Double = ???
   def sinTo(line: Line): Double = ???
 
+  // ---- std ----
+
+  override def toString: String = s"Line(sp: ${sp}, dir: ${dir})"
+
 }

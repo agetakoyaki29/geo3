@@ -40,7 +40,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
-  def through(pt: Point): Boolean = this dotEq0 pt
+  def through(pt: Point): Boolean = this crossEq0 pt
 
   def inRegion1(pt: Point): Boolean = this dotGt0 pt
   def inRegion2(pt: Point): Boolean = -this dotGt0 pt-this

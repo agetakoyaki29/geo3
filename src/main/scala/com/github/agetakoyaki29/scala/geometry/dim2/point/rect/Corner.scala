@@ -88,7 +88,7 @@ class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
 
   // ----
 
-  // def intersect
+  // def intersect = ???
 
   // ---- UpRet ----
 

@@ -20,9 +20,26 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
 
   override def factory: Dim2Factory[_ <: Range] = Range
 
-  // ---- validation ----
+  // ----
 
+  def through(pt: Point): Boolean = Delta.eq(pt.normSqr, this.normSqr)
 
+  def contain(pt: Point) = Delta.lt(pt.normSqr, this.normSqr)
+
+  override def distance(pt: Point): Double = (pt.norm-this.norm).abs
+
+  override def distanceSqr(pt: Point): Double = distance(pt)^2
+
+  def nearest(pt: Point): Point = pt * (this.norm/pt.norm)
+
+  // ----
+
+  // def aabb = {
+  //   val norm = this.norm
+  //   AABB(Point.ORIGIN, Corner(norm, norm))
+  // }
+
+  // def intersect = ???
 
   // ---- UpRet ----
 

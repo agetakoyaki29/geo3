@@ -6,6 +6,7 @@ import com.github.agetakoyaki29.scala.geometry.dim2.Dim2
 import com.github.agetakoyaki29.scala.geometry.dim2.Dim2Factory
 import com.github.agetakoyaki29.scala.geometry.dim2.Vector
 import com.github.agetakoyaki29.scala.geometry.dim2.point.Point
+import com.github.agetakoyaki29.scala.geometry.dim2.point.line.Line
 import com.github.agetakoyaki29.scala.geometry.Delta
 import Delta._
 
@@ -39,7 +40,18 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
   //   AABB(Point.ORIGIN, Corner(norm, norm))
   // }
 
-  // def intersect = ???
+  def intersect(line: Line): Seq[Point] = {
+    val nearest = line.nearest(Point.ORIGIN)
+    if(!(this contain nearest)) Seq()
+    else if(this through nearest) Seq(nearest)
+    else {
+      val diff = (this.normSqr - nearest.normSqr).sqrt
+      val dd = line.dir.normalized * diff
+      Seq(nearest-dd, nearest+dd)
+    }
+  }
+
+  def isIntersect(line: Line): Boolean = this contain line.nearest(Point.ORIGIN)
 
   // ---- UpRet ----
 

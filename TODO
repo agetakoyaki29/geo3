@@ -2,3 +2,6 @@
 * same arg
 dir same dim2
 dir same Dir(dim2)
+
+* NonZeroPoint
+Dir(what dir), Range(?)

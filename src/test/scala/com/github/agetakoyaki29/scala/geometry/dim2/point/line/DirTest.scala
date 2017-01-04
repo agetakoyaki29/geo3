@@ -17,6 +17,9 @@ class Dir2Test extends FunSuite {
  test("nearestIsOn") {
    nearestIsOn(dir1, pt1)
  }
+ test("nearestNormIsDistance") {
+   nearestNormIsDistance(dir1, pt1)
+ }
  test("normalizedNormIs1") {
    normalizedNormIs1(dir1)
  }
@@ -45,6 +48,13 @@ class Dir2Test extends FunSuite {
    val near = dir.nearest(pt)
    val t1 = dir.through(near)
    assert(t1)
+ }
+
+ def nearestNormIsDistance(dir: Dir, pt: Point) = {
+   val near = dir nearest pt
+   val diff = near - pt
+   val dist = dir distance pt
+   assert(Delta.eq(diff.norm, dist))
  }
 
  def normalizedNormIs1(dir: Dir) = {

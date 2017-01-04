@@ -5,10 +5,18 @@ import point.Point
 import point.Trans
 
 
-case class Line(sp: Point, dir: Dir) extends Trans[Line] {
+object Line {
+  def apply(sp: Point, dir: Dir) = new Line(sp, dir)
+  def apply(sp: Point, ep: Point) = new Line(sp, Dir(sp localize ep))
+}
+
+class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
+
+  val ep: Point = sp unlocalize dir
 
   def updated(sp: Point, dir: Dir) = Line(sp, dir)
   def updatedSP(sp: Point) = updated(sp, dir)
+  def updatedEP(ep: Point) = updated(sp, Dir(sp localize ep))
   def updatedDir(dir: Dir) = updated(sp, dir)
 
   // ----

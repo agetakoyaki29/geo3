@@ -6,6 +6,7 @@ import com.github.agetakoyaki29.scala.geometry.dim2.Dim2
 import com.github.agetakoyaki29.scala.geometry.dim2.Dim2Factory
 import com.github.agetakoyaki29.scala.geometry.dim2.Vector
 import com.github.agetakoyaki29.scala.geometry.dim2.point.Point
+import com.github.agetakoyaki29.scala.geometry.dim2.point.rect.Rect
 import com.github.agetakoyaki29.scala.geometry.Delta
 import Delta._
 
@@ -76,8 +77,10 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
     if(!isIntersect(line)) return Seq()
     else return Seq(this * (line.dir cross line.sp) / (line.dir cross this))
   }
-
   def isIntersect(line: Line): Boolean = !(this parallel line.dir)
+
+  def intersect(rect: Rect): Seq[Point] = ???
+  def isIntersect(rect: Rect): Boolean = ???
 
   // ----
 

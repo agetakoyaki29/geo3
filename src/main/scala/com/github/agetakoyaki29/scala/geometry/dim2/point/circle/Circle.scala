@@ -35,6 +35,4 @@ case class Circle(sp: Point, range: Range) extends Trans[Circle] {
   def intersect(line: Line): Seq[Point] = ???
   def isIntersect(line: Line): Boolean = ???
 
-  // ----
-
 }

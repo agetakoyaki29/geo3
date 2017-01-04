@@ -50,7 +50,6 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
       Seq(nearest-dd, nearest+dd)
     }
   }
-
   def isIntersect(line: Line): Boolean = this contain line.nearest(Point.ORIGIN)
 
   // ---- UpRet ----

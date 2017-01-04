@@ -3,6 +3,8 @@ package com.github.agetakoyaki29.scala.geometry.dim2.point.line
 import com.github.agetakoyaki29.scala.geometry.dim2.point
 import point.Point
 import point.Trans
+import point.rect.Rect
+import point.circle.Circle
 
 
 object Line {
@@ -43,6 +45,12 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
 
   def intersect(line: Line): Seq[Point] = ???
   def isIntersect(line: Line): Boolean = ???
+
+  def intersect(rect: Rect): Seq[Point] = ???
+  def isIntersect(rect: Rect): Boolean = ???
+
+  def intersect(circle: Circle): Seq[Point] = circle intersect this
+  def isIntersect(circle: Circle): Boolean = circle isIntersect this
 
   // ----
 

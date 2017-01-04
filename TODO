@@ -5,3 +5,8 @@ dir same Dir(dim2)
 
 * NonZeroPoint
 Dir(what dir), Range(?)
+
+* circle intersect circle
+def intersect(circle: Circle): Seq[Point] = ???
+def isIntersect(circle: Circle): Boolean = ???
+rect|rect, circle|rect

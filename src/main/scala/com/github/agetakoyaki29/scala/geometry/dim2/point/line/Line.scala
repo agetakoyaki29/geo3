@@ -10,6 +10,9 @@ import point.circle.Circle
 object Line {
   def apply(sp: Point, dir: Dir) = new Line(sp, dir)
   def apply(sp: Point, ep: Point) = new Line(sp, Dir(sp localize ep))
+
+  def xAline(y: Double) = new Line(Point(0, y), Dir.xAline)
+  def yAline(x: Double) = new Line(Point(x, 0), Dir.yAline)
 }
 
 class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
@@ -54,6 +57,8 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
 
   // ----
 
+  def alineX: Boolean = ???
+  def alineY: Boolean = ???
   def reverse: Line = updated(sp+dir, dir.reverse)
   def normalized: Line = ???
   def normalDir: Line = ???

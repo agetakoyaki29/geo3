@@ -15,6 +15,9 @@ object Dir extends Dim2Factory[Dir] {
   def apply(x: Double, y: Double) = new Dir(x, y)
 
   def angle(angle: Double) = this(Math.cos(angle), Math.sin(angle))
+
+  val xAline = Dir(1, 0)
+  val yAline = Dir(0, 1)
 }
 
 
@@ -83,6 +86,9 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   def isIntersect(rect: Rect): Boolean = ???
 
   // ----
+
+  def alineX: Boolean = this parallel xAline
+  def alineY: Boolean = this parallel yAline
 
   @UpRet
   def reverse: Dir = -this

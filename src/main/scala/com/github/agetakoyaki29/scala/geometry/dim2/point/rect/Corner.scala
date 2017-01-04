@@ -6,6 +6,7 @@ import com.github.agetakoyaki29.scala.geometry.dim2.Dim2
 import com.github.agetakoyaki29.scala.geometry.dim2.Dim2Factory
 import com.github.agetakoyaki29.scala.geometry.dim2.Vector
 import com.github.agetakoyaki29.scala.geometry.dim2.point.Point
+import com.github.agetakoyaki29.scala.geometry.dim2.point.line.Line
 import com.github.agetakoyaki29.scala.geometry.Delta
 import Delta._
 
@@ -43,6 +44,9 @@ class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
   def rightup = Point(x, -y)
   def rightdown = Point(this)
   def center = Point.ORIGIN
+
+  def xSlab = Seq(Line.xAline(-y), Line.xAline(y))
+  def ySlab = Seq(Line.yAline(-x), Line.yAline(x))
 
   // ----
 

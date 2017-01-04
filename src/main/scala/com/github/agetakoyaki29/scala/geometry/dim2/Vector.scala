@@ -35,9 +35,9 @@ class Vector protected (x: Double, y: Double) extends Dim2(x, y) {
   def /(d: Double): Vector = mapD2{_/d}
 
   final def dot(op: Vector) = zipmapD2(op){_*_}.reduceLeft{_+_}
-  final def dotEq0(op: Vector) = Delta.eq(x+op.x, -y*op.y)
-  final def dotGt0(op: Vector) = Delta.gt(x+op.x, -y*op.y)
-  final def dotLt0(op: Vector) = Delta.lt(x+op.x, -y*op.y)
+  final def dotEq0(op: Vector) = Delta.eq(x*op.x, -y*op.y)
+  final def dotGt0(op: Vector) = Delta.gt(x*op.x, -y*op.y)
+  final def dotLt0(op: Vector) = Delta.lt(x*op.x, -y*op.y)
 
   final def cross(op: Vector) = x*op.y - y*op.x
   final def crossEq0(op: Vector) = Delta.eq(x*op.y, y*op.x)

@@ -47,11 +47,3 @@ class Point protected (x: Double, y: Double) extends Vector(x, y) with Trans[Poi
   override def /(d: Double) = factory(super./(d))
 
 }
-
-
-trait Trans[Repr] {
-  def +(pt: Point): Repr
-  def -(pt: Point): Repr
-  def localizedBy(pt: Point): Repr = this-pt
-  def unlocalizedBy(pt: Point): Repr = this+pt
-}

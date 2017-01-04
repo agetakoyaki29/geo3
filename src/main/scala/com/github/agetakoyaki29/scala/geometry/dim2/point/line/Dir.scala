@@ -42,8 +42,8 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   def through(pt: Point): Boolean = this dotEq0 pt
 
-  def inRegion1(pt: Point) = this dotGt0 pt
-  def inRegion2(pt: Point) = -this dotGt0 pt-this
+  def inRegion1(pt: Point): Boolean = this dotGt0 pt
+  def inRegion2(pt: Point): Boolean = -this dotGt0 pt-this
 
   /**
    * (this sinTo pt) < 0
@@ -72,11 +72,20 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   // def aabb: AABB = AABB.WHOLE
 
-  // def intersect(line: Line): Seq[Point] = {
+  /**
+   * this * (line.dir sinTo line.sp - 0) / (line.dir sinTo this)
+   */
+  def intersect(line: Line): Seq[Point] = {
+    if(!isIntersect(line)) return Seq()
+    else return Seq(this * (line.dir cross line.sp) / (line.dir cross this))
+  }
 
-  // def isIntersect(line: Line): Boolean = !(this parallel line.dir)
+  def isIntersect(line: Line): Boolean = !(this parallel line.dir)
 
   // ----
+
+  @UpRet
+  def reverse: Dir = -this
 
   @UpRet
   def normalized: Dir = this / this.norm

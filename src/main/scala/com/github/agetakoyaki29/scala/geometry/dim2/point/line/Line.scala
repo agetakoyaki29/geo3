@@ -11,12 +11,12 @@ object Line {
   def apply(sp: Point, dir: Dir) = new Line(sp, dir)
   def apply(sp: Point, ep: Point) = new Line(sp, Dir(sp localize ep))
 
-  def aline(i: Int, d: Double) = {
+  def align(i: Int, d: Double) = {
     val j = (i+1) % 2
-    new Line(Point.ORIGIN.updated(j, d), Dir.aline(i))
+    new Line(Point.ORIGIN.updated(j, d), Dir.align(i))
   }
-  def xAline(y: Double) = aline(0, y)
-  def yAline(x: Double) = aline(1, x)
+  def xAlign(y: Double) = align(0, y)
+  def yAlign(x: Double) = align(1, x)
 }
 
 class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
@@ -61,9 +61,9 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
 
   // ----
 
-  def aline(i: Int): Boolean = ???
-  def alineX: Boolean = ???
-  def alineY: Boolean = ???
+  def align(i: Int): Boolean = ???
+  def alignX: Boolean = ???
+  def alignY: Boolean = ???
   def reverse: Line = updated(sp+dir, dir.reverse)
   def normalized: Line = ???
   def normalDir: Line = ???

@@ -16,12 +16,12 @@ object Dir extends Dim2Factory[Dir] {
 
   def angle(angle: Double) = this(Math.cos(angle), Math.sin(angle))
 
-  def aline(i: Int) = i match {
+  def align(i: Int) = i match {
     case 0 => Dir(1, 0)
     case 1 => Dir(0, 1)
   }
-  val xAline = aline(0)
-  val yAline = aline(1)
+  val xAlign = align(0)
+  val yAlign = align(1)
 }
 
 
@@ -89,7 +89,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   def intersect(rect: Rect): Seq[Point] = intersectTime(rect).map(this*_)
   def intersectTime(rect: Rect): Seq[Double] = {
-    for(i <- Seq(0, 1)) if(this.aline(i)) {
+    for(i <- Seq(0, 1)) if(this.align(i)) {
       // if(rect.slab(i) contain Point.ORIGIN) {
       if(rect.contain(i, Point.ORIGIN)) {
         val j = (i+1) % 2
@@ -97,7 +97,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
       }
       else return Seq()
     }
-    // non aline
+    // non align
     val times = Seq(0, 1).map{
           rect.slab(_).map{this.intersectTime(_).apply(0)}.sorted
         }.sortBy{_ apply 0}
@@ -107,12 +107,12 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
     else return Seq(times(1)(0), times(0)(1))
   }
   def isIntersect(rect: Rect): Boolean = {
-    for(i <- Seq(0, 1)) if(this.aline(i)) {
+    for(i <- Seq(0, 1)) if(this.align(i)) {
       // if(rect.slab(i) contain Point.ORIGIN) return true
       if(rect.contain(i, Point.ORIGIN)) return true
       else return false
     }
-    // non aline
+    // non align
     val times = Seq(0, 1).map{
           rect.slab(_).map{this.intersectTime(_).apply(0)}.sorted
         }.sortBy{_ apply 0}
@@ -124,9 +124,9 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
-  def aline(i: Int) = this parallel Dir.aline(i)
-  def alineX: Boolean = aline(0)
-  def alineY: Boolean = aline(1)
+  def align(i: Int) = this parallel Dir.align(i)
+  def alignX: Boolean = align(0)
+  def alignY: Boolean = align(1)
 
   @UpRet
   def reverse: Dir = -this

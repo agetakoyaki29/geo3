@@ -80,14 +80,47 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   /**
    * this * (line.dir sinTo line.sp - 0) / (line.dir sinTo this)
    */
-  def intersect(line: Line): Seq[Point] = {
+  def intersect(line: Line): Seq[Point] = intersectTime(line).map(this*_)
+  def intersectTime(line: Line): Seq[Double] = {
     if(!isIntersect(line)) return Seq()
-    else return Seq(this * (line.dir cross line.sp) / (line.dir cross this))
+    else return Seq((line.dir cross line.sp) / (line.dir cross this))
   }
   def isIntersect(line: Line): Boolean = !(this parallel line.dir)
 
-  def intersect(rect: Rect): Seq[Point] = ???
-  def isIntersect(rect: Rect): Boolean = ???
+  def intersect(rect: Rect): Seq[Point] = intersectTime(rect).map(this*_)
+  def intersectTime(rect: Rect): Seq[Double] = {
+    for(i <- Seq(0, 1)) if(this.aline(i)) {
+      // if(rect.slab(i) contain Point.ORIGIN) {
+      if(rect.contain(i, Point.ORIGIN)) {
+        val j = (i+1) % 2
+        return rect.slab(j).flatMap{this intersectTime}
+      }
+      else return Seq()
+    }
+    // non aline
+    val times = Seq(0, 1).map{
+          rect.slab(_).map{this.intersectTime(_).apply(0)}.sorted
+        }.sortBy{_ apply 0}
+    val ch = times(1)(0) - times(0)(1)
+    if(!(Delta.lt(ch, 0))) return Seq()
+    else if(Delta.eq(ch, 0)) return Seq(times(1)(0))
+    else return Seq(times(1)(0), times(0)(1))
+  }
+  def isIntersect(rect: Rect): Boolean = {
+    for(i <- Seq(0, 1)) if(this.aline(i)) {
+      // if(rect.slab(i) contain Point.ORIGIN) return true
+      if(rect.contain(i, Point.ORIGIN)) return true
+      else return false
+    }
+    // non aline
+    val times = Seq(0, 1).map{
+          rect.slab(_).map{this.intersectTime(_).apply(0)}.sorted
+        }.sortBy{_ apply 0}
+    val ch = times(1)(0) - times(0)(1)
+    if(!(Delta.lt(ch, 0))) return false
+    // else if(Delta.eq(ch, 0)) return true
+    else return true
+  }
 
   // ----
 

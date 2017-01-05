@@ -89,36 +89,32 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   def intersect(rect: Rect): Seq[Point] = intersectTime(rect).map(this*_)
   def intersectTime(rect: Rect): Seq[Double] = {
-    for(i <- Seq(0, 1)) if(this.align(i)) {
-      // if(rect.slab(i) contain Point.ORIGIN) {
-      if(rect.contain(i, Point.ORIGIN)) {
-        val j = (i+1) % 2
-        return rect.slab(j).flatMap{this intersectTime}
-      }
-      else return Seq()
-    }
+    // if align
+    for(i <- (0 until length))
+      if(this.align(i))
+        if(!rect.contain(i, Point.ORIGIN)) return Seq()
     // non align
-    val times = Seq(0, 1).map{
-          rect.slab(_).map{this.intersectTime(_).apply(0)}.sorted
-        }.sortBy{_ apply 0}
-    val ch = times(1)(0) - times(0)(1)
-    if(!(Delta.lt(ch, 0))) return Seq()
-    else if(Delta.eq(ch, 0)) return Seq(times(1)(0))
-    else return Seq(times(1)(0), times(0)(1))
+    val times = (0 until length).map{
+          rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
+        }.filterNot{_.isEmpty}
+    val inTime = times.map{_ apply 0}.max
+    val outTime = times.map{_ apply 1}.min
+    if(!Delta.lt(inTime, outTime)) return Seq()
+    else if(Delta.eq(inTime, outTime)) return Seq(inTime)
+    else return Seq(inTime, outTime)
   }
   def isIntersect(rect: Rect): Boolean = {
-    for(i <- Seq(0, 1)) if(this.align(i)) {
-      // if(rect.slab(i) contain Point.ORIGIN) return true
-      if(rect.contain(i, Point.ORIGIN)) return true
-      else return false
-    }
+    // if align
+    for(i <- (0 until length))
+      if(this.align(i))
+        if(!rect.contain(i, Point.ORIGIN)) return false
     // non align
-    val times = Seq(0, 1).map{
-          rect.slab(_).map{this.intersectTime(_).apply(0)}.sorted
-        }.sortBy{_ apply 0}
-    val ch = times(1)(0) - times(0)(1)
-    if(!(Delta.lt(ch, 0))) return false
-    // else if(Delta.eq(ch, 0)) return true
+    val times = (0 until length).map{ rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
+        }.filterNot{_.isEmpty}
+    val inTime = times.map{_ apply 0}.max
+    val outTime = times.map{_ apply 1}.min
+    if(!Delta.lt(inTime, outTime)) return false
+    // else if(Delta.eq(inTime, outTime)) return true
     else return true
   }
 

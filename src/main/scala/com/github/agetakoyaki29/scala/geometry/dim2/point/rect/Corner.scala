@@ -61,8 +61,8 @@ class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
     else false
   }
 
-  def contain(pt: Point) = Seq(lt(pt.abs.x, x), lt(pt.abs.y, y)) reduceLeft {_&&_}
-  def contain(idx: Int, pt: Point) = lt(pt(idx).abs, this(idx))
+  def contain(pt: Point): Boolean = Seq(lt(pt.abs.x, x), lt(pt.abs.y, y)) reduceLeft {_&&_}
+  def contain(idx: Int, pt: Point): Boolean = lt(pt(idx).abs, this(idx))
 
   def containX(d: Double) = lt(d.abs, x)
   def containY(d: Double) = lt(d.abs, y)

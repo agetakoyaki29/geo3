@@ -24,6 +24,12 @@ object Dim2 extends Dim2Factory[Dim2] {
 
   val ZERO = this(0, 0)
   val INFINITY = this(Double.PositiveInfinity, Double.PositiveInfinity)
+  def E(idx: Int) = ZERO.updated(idx, 1)
+
+  def other(idx: Int): Int = idx match {
+    case 0 => 1
+    case 1 => 0
+  }
 }
 
 

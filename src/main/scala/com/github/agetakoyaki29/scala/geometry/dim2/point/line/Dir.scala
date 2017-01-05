@@ -16,8 +16,12 @@ object Dir extends Dim2Factory[Dir] {
 
   def angle(angle: Double) = this(Math.cos(angle), Math.sin(angle))
 
-  val xAline = Dir(1, 0)
-  val yAline = Dir(0, 1)
+  def aline(i: Int) = i match {
+    case 0 => Dir(1, 0)
+    case 1 => Dir(0, 1)
+  }
+  val xAline = aline(0)
+  val yAline = aline(1)
 }
 
 
@@ -87,8 +91,9 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
-  def alineX: Boolean = this parallel xAline
-  def alineY: Boolean = this parallel yAline
+  def aline(i: Int) = this parallel Dir.aline(i)
+  def alineX: Boolean = aline(0)
+  def alineY: Boolean = aline(1)
 
   @UpRet
   def reverse: Dir = -this

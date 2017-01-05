@@ -45,8 +45,13 @@ class Corner protected (x: Double, y: Double) extends Point(x.abs, y.abs) {
   def rightdown = Point(this)
   def center = Point.ORIGIN
 
-  def xSlab = Seq(Line.xAline(-y), Line.xAline(y))
-  def ySlab = Seq(Line.yAline(-x), Line.yAline(x))
+  def slab(i: Int) = {
+    val j = (i+1) % 2
+    val d = this(j)
+    Seq(Line.aline(i, -d), Line.aline(i, d))
+  }
+  def xSlab = slab(0)
+  def ySlab = slab(1)
 
   // ----
 

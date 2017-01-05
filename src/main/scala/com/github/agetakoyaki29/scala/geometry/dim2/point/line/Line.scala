@@ -11,8 +11,12 @@ object Line {
   def apply(sp: Point, dir: Dir) = new Line(sp, dir)
   def apply(sp: Point, ep: Point) = new Line(sp, Dir(sp localize ep))
 
-  def xAline(y: Double) = new Line(Point(0, y), Dir.xAline)
-  def yAline(x: Double) = new Line(Point(x, 0), Dir.yAline)
+  def aline(i: Int, d: Double) = {
+    val j = (i+1) % 2
+    new Line(Point.ORIGIN.updated(j, d), Dir.aline(i))
+  }
+  def xAline(y: Double) = aline(0, y)
+  def yAline(x: Double) = aline(1, x)
 }
 
 class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
@@ -57,6 +61,7 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
 
   // ----
 
+  def aline(i: Int): Boolean = ???
   def alineX: Boolean = ???
   def alineY: Boolean = ???
   def reverse: Line = updated(sp+dir, dir.reverse)

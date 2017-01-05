@@ -33,7 +33,7 @@ object Dim2 extends Dim2Factory[Dim2] {
 }
 
 
-abstract class Dim2(val x: Double, val y: Double) {
+abstract class Dim2(val x: Double, val y: Double) extends IndexedSeq[Double]  {
 
   // -- validate --
 
@@ -82,13 +82,13 @@ abstract class Dim2(val x: Double, val y: Double) {
 
   // -- IndexedSeq --
 
-  def foreach[U](f: Double => U): Unit = { f(x); f(y) }
+  override def foreach[U](f: Double => U): Unit = { f(x); f(y) }
   def apply(idx: Int): Double = idx match { case 0 => x; case 1 => y }
   def length: Int = 2
 
-  def updated(i: Int, d: Double): Dim2 = i match {
-    case 0 => Dim2(d, y)
-    case 1 => Dim2(x, d)
-  }
+  // def updated(i: Int, d: Double): Dim2 = i match {
+  //   case 0 => Dim2(d, y)
+  //   case 1 => Dim2(x, d)
+  // }
 
 }

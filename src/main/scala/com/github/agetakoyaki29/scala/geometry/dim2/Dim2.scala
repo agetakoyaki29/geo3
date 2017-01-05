@@ -60,7 +60,7 @@ abstract class Dim2(val x: Double, val y: Double) extends IndexedSeq[Double]  {
   @UpRet
   def zipmapD2(op: Dim2)(f: (Double, Double) => Double): Dim2 = factory(f(x, op.x), f(y, op.y))
 
-  def reduceLeft[T](f: (Double, Double) => T): T = f(x, y)
+  def reduceLeftD2[T](f: (Double, Double) => T): T = f(x, y)
 
   @UpRet
   def updated(x: Double, y: Double): Dim2 = factory(x, y)

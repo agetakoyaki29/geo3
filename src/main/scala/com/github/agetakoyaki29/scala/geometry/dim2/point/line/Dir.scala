@@ -125,7 +125,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   def alignY: Boolean = align(1)
 
   @UpRet
-  def reverse: Dir = -this
+  def reflect: Dir = -this
 
   @UpRet
   def normalized: Dir = this / this.norm

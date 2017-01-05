@@ -64,7 +64,7 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
   def align(i: Int): Boolean = ???
   def alignX: Boolean = ???
   def alignY: Boolean = ???
-  def reverse: Line = updated(sp+dir, dir.reverse)
+  def reflect: Line = updated(sp+dir, dir.reflect)
   def normalized: Line = ???
   def normalDir: Line = ???
   def normal(line: Line): Boolean = ???

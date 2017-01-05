@@ -22,8 +22,21 @@ case class Rect(sp: Point, corner: Corner) extends Trans[Rect] {
 
   // ----
 
+  def leftup = ???
+  def leftdown = ???
+  def rightup = ???
+  def rightdown = ???
+  def center = ???
+
+  def slab(idx: Int): Seq[Line] = ???
+  def xSlab: Seq[Line] = ???
+  def ySlab: Seq[Line] = ???
+
+  // ----
+
   def through(pt: Point): Boolean = ???
   def contain(pt: Point): Boolean = ???
+  def contain(idx: Int, pt: Point): Boolean = ???
 
   def distance(pt: Point): Double = ???
   def distanceSqr(pt: Point): Double = ???

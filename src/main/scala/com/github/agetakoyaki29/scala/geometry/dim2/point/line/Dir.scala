@@ -90,12 +90,11 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   def intersect(rect: Rect): Seq[Point] = intersectTime(rect).map(this*_)
   def intersectTime(rect: Rect): Seq[Double] = {
     // if align
-    for(i <- (0 until length))
+    for(i <- indices)
       if(this.align(i))
         if(!rect.contain(i, Point.ORIGIN)) return Seq()
     // non align
-    val times = (0 until length).map{
-          rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
+    val times = indices.map{ rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
         }.filterNot{_.isEmpty}
     val inTime = times.map{_ apply 0}.max
     val outTime = times.map{_ apply 1}.min
@@ -105,11 +104,11 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
   }
   def isIntersect(rect: Rect): Boolean = {
     // if align
-    for(i <- (0 until length))
+    for(i <- indices)
       if(this.align(i))
         if(!rect.contain(i, Point.ORIGIN)) return false
     // non align
-    val times = (0 until length).map{ rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
+    val times = indices.map{ rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
         }.filterNot{_.isEmpty}
     val inTime = times.map{_ apply 0}.max
     val outTime = times.map{_ apply 1}.min

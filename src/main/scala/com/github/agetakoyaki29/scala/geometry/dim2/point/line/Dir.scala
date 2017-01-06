@@ -99,8 +99,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
       if(this.align(i))
         if(!rect.contain(i, Point.ORIGIN)) return Seq()
     // non align
-    val times = indices.map{ rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
-        }.filterNot{_.isEmpty}
+    val times = rect.slabs.map{this.intersectTime(_).sorted}
     val inTime = times.map{_ apply 0}.max
     val outTime = times.map{_ apply 1}.min
     if(!Delta.lt(inTime, outTime)) return Seq()
@@ -113,8 +112,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
       if(this.align(i))
         if(!rect.contain(i, Point.ORIGIN)) return false
     // non align
-    val times = indices.map{ rect.slab(_).map{this.intersectTime(_)}.flatten.sorted
-        }.filterNot{_.isEmpty}
+    val times = rect.slabs.map{this.intersectTime(_).sorted}
     val inTime = times.map{_ apply 0}.max
     val outTime = times.map{_ apply 1}.min
     if(!Delta.lt(inTime, outTime)) return false

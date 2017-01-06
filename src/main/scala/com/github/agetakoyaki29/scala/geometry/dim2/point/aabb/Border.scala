@@ -36,6 +36,11 @@ class Slab protected (val idx: Int, _sd: Double, val border: Border) {
 
   def nearest(pt: Point): Point = ???
 
+  // ----
+
+  def intersect(line: Line) = line intersect this
+  def isIntersect(line: Line) = line isIntersect this
+
 }
 
 

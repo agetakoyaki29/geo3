@@ -4,6 +4,7 @@ import com.github.agetakoyaki29.scala.geometry.dim2.point
 import point.Point
 import point.Trans
 import point.line.{Dir, Line}
+import point.aabb.Slab
 
 
 case class Rect(sp: Point, corner: Corner) extends Trans[Rect] {
@@ -28,9 +29,10 @@ case class Rect(sp: Point, corner: Corner) extends Trans[Rect] {
   def rightdown = ???
   def center = ???
 
-  def slab(idx: Int): Seq[Line] = ???
-  def xSlab: Seq[Line] = ???
-  def ySlab: Seq[Line] = ???
+  def slab(idx: Int): Slab = ???
+  def slabs: Seq[Slab] = ???
+  def xSlab: Slab = ???
+  def ySlab: Slab = ???
 
   // ----
 

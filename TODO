@@ -10,3 +10,6 @@ Dir(what dir), Range(?)
 def intersect(circle: Circle): Seq[Point] = ???
 def isIntersect(circle: Circle): Boolean = ???
 rect|rect, circle|rect
+
+* contain Figure
+Figure intersect Point = Figure contain pt

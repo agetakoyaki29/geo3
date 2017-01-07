@@ -6,7 +6,7 @@ import com.github.agetakoyaki29.scala.geometry.dim2.Dim2
 import com.github.agetakoyaki29.scala.geometry.dim2.Dim2Factory
 import com.github.agetakoyaki29.scala.geometry.dim2.Vector
 import com.github.agetakoyaki29.scala.geometry.dim2.point.Point
-import com.github.agetakoyaki29.scala.geometry.dim2.point.line.Line
+import com.github.agetakoyaki29.scala.geometry.dim2.point.line.{Dir, Line}
 import com.github.agetakoyaki29.scala.geometry.Delta
 import Delta._
 
@@ -20,6 +20,18 @@ object Range extends Dim2Factory[Range] {
 class Range protected (x: Double, y: Double) extends Point(x, y) {
 
   override def factory: Dim2Factory[_ <: Range] = Range
+
+  // ----
+
+  /**
+   * sp.normalized * (this.normSqr - op.normSqr + sp.normSqr) / (2*sp.norm)
+   */
+  def radicalLine(circle: Circle): Line = {
+    val op = circle.range
+    val distanceSqr = circle.sp.normSqr
+    val a = ((this.normSqr/distanceSqr) - (op.normSqr/distanceSqr) + 1) / 2
+    Line(circle.sp * a, Dir(circle.sp).normalDir)
+  }
 
   // ----
 
@@ -51,6 +63,9 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
     }
   }
   def isIntersect(line: Line): Boolean = this contain line.nearest(Point.ORIGIN)
+
+  def intersect(circle: Circle): Seq[Point] = this intersect radicalLine(circle)
+  def isIntersect(circle: Circle): Boolean = Delta.lt(Point.ORIGIN distanceSqr circle.sp, this.normSqr + circle.range.normSqr)
 
   // ---- UpRet ----
 

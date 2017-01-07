@@ -20,6 +20,8 @@ case class Circle(sp: Point, range: Range) extends Trans[Circle] {
   def *(d: Double): Circle = updated(sp * d, range * d)
   def /(d: Double): Circle = updated(sp / d, range / d)
 
+  def radicalLine(circle: Circle): Line = ???
+
   // ----
 
   def through(pt: Point): Boolean = ???
@@ -34,5 +36,8 @@ case class Circle(sp: Point, range: Range) extends Trans[Circle] {
 
   def intersect(line: Line): Seq[Point] = ???
   def isIntersect(line: Line): Boolean = ???
+
+  def intersect(circle: Circle): Seq[Point] = ???
+  def isIntersect(circle: Circle): Boolean = ???
 
 }

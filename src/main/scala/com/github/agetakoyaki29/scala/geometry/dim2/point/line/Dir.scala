@@ -90,7 +90,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   def intersect(slab: Slab): Seq[Point] = intersectTime(slab).map(this*_)
   def intersectTime(slab: Slab): Seq[Double] = slab.lines flatMap {this intersectTime }
-  def isIntersectTime(slab: Slab): Boolean = this.align(slab.idx)
+  def isIntersect(slab: Slab): Boolean = this.align(slab.idx)
 
   def intersect(rect: Rect): Seq[Point] = intersectTime(rect).map(this*_)
   def intersectTime(rect: Rect): Seq[Double] = {

@@ -4,7 +4,7 @@ lazy val root = (project in file("."))
   .settings(
     organization := "com.github.agetakoyaki29",
     name := "geo1",
-    version := "1.0",
+    version := "1.1",
     scalaVersion := "2.11.8",
 
     libraryDependencies += junit,

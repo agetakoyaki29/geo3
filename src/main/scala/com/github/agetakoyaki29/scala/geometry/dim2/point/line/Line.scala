@@ -18,6 +18,8 @@ object Line {
   }
   def xAlign(y: Double) = align(0, y)
   def yAlign(x: Double) = align(1, x)
+
+  implicit def dirToLine(dir: Dir): Line = Line(Point.ORIGIN, dir)
 }
 
 class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
@@ -37,51 +39,52 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
   def *(d: Double): Line = updated(sp * d, dir * d)
   def /(d: Double): Line = updated(sp / d, dir / d)
 
-  // ----
-
-  def through(pt: Point): Boolean = ???
-  def inRegion1(pt: Point): Boolean = ???
-  def inRegion2(pt: Point): Boolean = ???
-  def contain(pt: Point): Boolean = ???
-
-  def distance(pt: Point): Double = ???
-  def distanceSqr(pt: Point): Double = ???
-
-  def nearest(pt: Point): Point = ???
+  def reflect: Line = updated(sp+dir, dir.reflect)
 
   // ----
 
-  def same(line: Line): Boolean = ???
+  def through(pt: Point): Boolean = sp unlocalize (dir through (sp localize pt))
+  def inRegion1(pt: Point): Boolean = sp unlocalize (dir inRegion1 (sp localize pt))
+  def inRegion2(pt: Point): Boolean = sp unlocalize (dir inRegion2 (sp localize pt))
+  def contain(pt: Point): Boolean = sp unlocalize (dir contain (sp localize pt))
 
-  def intersect(line: Line): Seq[Point] = ???
-  def isIntersect(line: Line): Boolean = ???
+  def distance(pt: Point): Double = sp unlocalize (dir distance (sp localize pt))
+  def distanceSqr(pt: Point): Double = sp unlocalize (dir distanceSqr (sp localize pt))
 
-  def intersect(slab: Slab): Seq[Point] = ???
-  def isIntersect(slab: Slab): Boolean = ???
+  def nearest(pt: Point): Point = sp unlocalize (dir nearest (sp localize pt))
 
-  def intersect(rect: Rect): Seq[Point] = ???
-  def isIntersect(rect: Rect): Boolean = ???
+  // ----
+
+  def same(line: Line): Boolean = sp unlocalize (dir same (sp localize line))
+
+  def intersect(line: Line): Seq[Point] = (dir intersect (sp localize line)) map {sp unlocalize _}
+  def isIntersect(line: Line): Boolean = sp unlocalize (dir isIntersect (sp localize line))
+
+  def intersect(slab: Slab): Seq[Point] = (dir intersect (sp localize slab)) map {sp unlocalize _}
+  def isIntersect(slab: Slab): Boolean = sp unlocalize (dir isIntersect (sp localize slab))
+
+  def intersect(rect: Rect): Seq[Point] = (dir intersect (sp localize rect)) map {sp unlocalize _}
+  def isIntersect(rect: Rect): Boolean = sp unlocalize (dir isIntersect (sp localize rect))
 
   def intersect(circle: Circle): Seq[Point] = circle intersect this
   def isIntersect(circle: Circle): Boolean = circle isIntersect this
 
   // ----
 
-  def align(i: Int): Boolean = ???
-  def alignX: Boolean = ???
-  def alignY: Boolean = ???
-  def reflect: Line = updated(sp+dir, dir.reflect)
-  def normalized: Line = ???
-  def normalDir: Line = ???
-  def normal(line: Line): Boolean = ???
-  def parallel(line: Line): Boolean = ???
+  def align(idx: Int): Boolean = sp unlocalize (dir align (sp localize idx))
+  def alignX: Boolean = sp unlocalize (dir alignX)
+  def alignY: Boolean = sp unlocalize (dir alignY)
+  def normalized: Line = sp unlocalize (dir normalized)
+  def normalDir: Line = sp unlocalize (dir normalDir)
+  def normal(line: Line): Boolean = dir normal line.dir
+  def parallel(line: Line): Boolean = dir parallel line.dir
 
   // ----
 
-  def angle: Double = ???
-  def angleTo(line: Line): Double = ???
-  def cosTo(line: Line): Double = ???
-  def sinTo(line: Line): Double = ???
+  def angle: Double = sp unlocalize (dir angle)
+  def angleTo(line: Line): Double = dir angleTo line.dir
+  def cosTo(line: Line): Double = dir cosTo line.dir
+  def sinTo(line: Line): Double = dir sinTo line.dir
 
   // ---- std ----
 

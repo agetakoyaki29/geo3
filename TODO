@@ -1,4 +1,8 @@
 
+* updatedDir, updatedSp
+
+* what happen call intersect when each is same
+
 * same arg
 dir same dim2
 dir same Dir(dim2)
@@ -6,9 +10,7 @@ dir same Dir(dim2)
 * NonZeroPoint
 Dir(what dir), Range(?)
 
-* circle intersect circle
-def intersect(circle: Circle): Seq[Point] = ???
-def isIntersect(circle: Circle): Boolean = ???
+* intersect
 rect|rect, circle|rect
 
 * contain Figure

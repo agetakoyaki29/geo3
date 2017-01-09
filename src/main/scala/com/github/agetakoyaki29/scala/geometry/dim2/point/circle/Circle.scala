@@ -20,24 +20,24 @@ case class Circle(sp: Point, range: Range) extends Trans[Circle] {
   def *(d: Double): Circle = updated(sp * d, range * d)
   def /(d: Double): Circle = updated(sp / d, range / d)
 
-  def radicalLine(circle: Circle): Line = ???
+  def radicalLine(circle: Circle): Line = sp unlocalize (range radicalLine (sp localize circle))
 
   // ----
 
-  def through(pt: Point): Boolean = ???
-  def contain(pt: Point): Boolean = ???
+  def through(pt: Point): Boolean = sp unlocalize (range through (sp localize pt))
+  def contain(pt: Point): Boolean = sp unlocalize (range contain (sp localize pt))
 
-  def distance(pt: Point): Double = ???
-  def distanceSqr(pt: Point): Double = ???
+  def distance(pt: Point): Double = sp unlocalize (range distance (sp localize pt))
+  def distanceSqr(pt: Point): Double = sp unlocalize (range distanceSqr (sp localize pt))
 
-  def nearest(pt: Point): Point = ???
+  def nearest(pt: Point): Point = sp unlocalize (range nearest (sp localize pt))
 
   // ----
 
-  def intersect(line: Line): Seq[Point] = ???
-  def isIntersect(line: Line): Boolean = ???
+  def intersect(line: Line): Seq[Point] = (range intersect (sp localize line)) map {sp unlocalize _}
+  def isIntersect(line: Line): Boolean = sp unlocalize (range isIntersect (sp localize line))
 
-  def intersect(circle: Circle): Seq[Point] = ???
-  def isIntersect(circle: Circle): Boolean = ???
+  def intersect(circle: Circle): Seq[Point] = (range intersect (sp localize circle)) map {sp unlocalize _}
+  def isIntersect(circle: Circle): Boolean = sp unlocalize (range isIntersect (sp localize circle))
 
 }

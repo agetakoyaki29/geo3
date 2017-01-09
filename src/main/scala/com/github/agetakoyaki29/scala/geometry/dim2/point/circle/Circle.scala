@@ -41,6 +41,8 @@ case class Circle(sp: Point, range: Range) extends Trans[Circle] {
 
   // ----
 
+  def same(circle: Circle): Boolean = sp unlocalize (range same (sp localize circle))
+
   def intersect(line: Line): Seq[Point] = (range intersect (sp localize line)) map {sp unlocalize _}
   def isIntersect(line: Line): Boolean = sp unlocalize (range isIntersect (sp localize line))
 

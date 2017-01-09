@@ -47,6 +47,8 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
+  def same(circle: Circle): Boolean = (circle.sp == Point.ORIGIN) && (this through circle.range)
+
   // def aabb = {
   //   val norm = this.norm
   //   AABB(Point.ORIGIN, Corner(norm, norm))

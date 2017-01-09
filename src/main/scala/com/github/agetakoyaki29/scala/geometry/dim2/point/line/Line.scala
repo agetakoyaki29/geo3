@@ -51,6 +51,8 @@ class Line(val sp: Point, val dir: Dir) extends Trans[Line] {
 
   // ----
 
+  def same(line: Line): Boolean = ???
+
   def intersect(line: Line): Seq[Point] = ???
   def isIntersect(line: Line): Boolean = ???
 

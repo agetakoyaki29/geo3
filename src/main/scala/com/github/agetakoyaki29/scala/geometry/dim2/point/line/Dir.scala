@@ -74,7 +74,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
 
   def same(op: Dir): Boolean = this parallel op
 
-  // def same(line: Line): Boolean = (this passThrough line.sp) && (this parallel line.dir)
+  def same(line: Line): Boolean = (this through line.sp) && (this parallel line.dir)
 
   // def aabb: AABB = AABB.WHOLE
 

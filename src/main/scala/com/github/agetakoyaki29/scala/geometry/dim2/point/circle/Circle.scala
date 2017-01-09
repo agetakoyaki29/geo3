@@ -6,10 +6,17 @@ import point.Trans
 import point.line.{Dir, Line}
 
 
+object Circle {
+  def apply(sp: Point, ep: Point) = new Circle(sp, Range(sp localize ep))
+}
+
 case class Circle(sp: Point, range: Range) extends Trans[Circle] {
+
+  val ep: Point = sp unlocalize range
 
   def updated(sp: Point, range: Range) = Circle(sp, range)
   def updatedSP(sp: Point) = updated(sp, range)
+  def updatedEP(ep: Point) = updated(sp, Range(sp localize ep))
   def updatedRange(range: Range) = updated(sp, range)
 
   // ----

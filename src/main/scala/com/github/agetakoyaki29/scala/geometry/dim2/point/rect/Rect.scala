@@ -23,27 +23,27 @@ case class Rect(sp: Point, corner: Corner) extends Trans[Rect] {
 
   // ----
 
-  def leftup = ???
-  def leftdown = ???
-  def rightup = ???
-  def rightdown = ???
-  def center = ???
+  def leftup = sp unlocalize (corner leftup)
+  def leftdown = sp unlocalize (corner leftdown)
+  def rightup = sp unlocalize (corner rightup)
+  def rightdown = sp unlocalize (corner rightdown)
+  def center = sp unlocalize (corner center)
 
-  def slab(idx: Int): Slab = ???
-  def slabs: Seq[Slab] = ???
-  def xSlab: Slab = ???
-  def ySlab: Slab = ???
+  def slab(idx: Int): Slab = corner.slab(idx)
+  def slabs: Seq[Slab] = corner.slabs
+  def xSlab: Slab = corner.xSlab
+  def ySlab: Slab = corner.ySlab
 
   // ----
 
-  def through(pt: Point): Boolean = ???
-  def contain(pt: Point): Boolean = ???
-  def contain(idx: Int, pt: Point): Boolean = ???
+  def through(pt: Point): Boolean = sp unlocalize (corner through (sp localize pt))
+  def contain(pt: Point): Boolean = sp unlocalize (corner contain (sp localize pt))
+  def contain(idx: Int, pt: Point): Boolean = sp unlocalize (corner.contain(idx, sp localize pt))
 
-  def distance(pt: Point): Double = ???
-  def distanceSqr(pt: Point): Double = ???
+  def distance(pt: Point): Double = sp unlocalize (corner distance (sp localize pt))
+  def distanceSqr(pt: Point): Double = sp unlocalize (corner distanceSqr (sp localize pt))
 
-  def nearest(pt: Point): Point = ???
+  def nearest(pt: Point): Point = sp unlocalize (corner nearest (sp localize pt))
 
   // ----
 

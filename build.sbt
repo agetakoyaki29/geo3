@@ -2,9 +2,9 @@
 
 lazy val root = (project in file("."))
   .settings(
-    // organization := "com.github",
+    organization := "com.github.agetakoyaki29",
     name := "geo1",
-    version := "0.0",
+    version := "1.0",
     scalaVersion := "2.11.8",
 
     libraryDependencies += junit,

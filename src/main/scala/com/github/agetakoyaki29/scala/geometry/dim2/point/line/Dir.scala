@@ -65,10 +65,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
    * pt + this.normal.normalized * -distance
    * this * (this dot pt) / (this dot this)
    */
-  def nearest(pt: Point): Point = {
-    if(pt == Point.ORIGIN) Point.ORIGIN
-    else Point(this * (this dot pt / this.normSqr))
-  }
+  def nearest(pt: Point): Point = Point(this) * (this dot pt / this.normSqr)
 
   //
 

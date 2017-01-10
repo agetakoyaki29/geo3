@@ -27,6 +27,8 @@ case class Circle(sp: Point, range: Range) extends Trans[Circle] {
   def *(d: Double): Circle = updated(sp * d, range * d)
   def /(d: Double): Circle = updated(sp / d, range / d)
 
+  def isConcentric(circle: Circle): Boolean = sp unlocalize (range isConcentric (sp localize circle))
+
   def radicalLine(circle: Circle): Line = sp unlocalize (range radicalLine (sp localize circle))
 
   // ----

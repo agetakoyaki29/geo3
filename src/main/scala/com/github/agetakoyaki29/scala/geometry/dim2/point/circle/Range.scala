@@ -23,10 +23,14 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
 
   // ----
 
+  def isConcentric(circle: Circle): Boolean = circle.sp == Point.ORIGIN
+
   /**
    * sp.normalized * (this.normSqr - op.normSqr + sp.normSqr) / (2*sp.norm)
+   * @param circle non concentric
    */
   def radicalLine(circle: Circle): Line = {
+    if(this isConcentric circle) throw new IllegalArgumentException("required non concentric")
     val op = circle.range
     val distanceSqr = circle.sp.normSqr
     val a = ((this.normSqr/distanceSqr) - (op.normSqr/distanceSqr) + 1) / 2
@@ -66,7 +70,10 @@ class Range protected (x: Double, y: Double) extends Point(x, y) {
   }
   def isIntersect(line: Line): Boolean = this contain line.nearest(Point.ORIGIN)
 
-  def intersect(circle: Circle): Seq[Point] = this intersect radicalLine(circle)
+  def intersect(circle: Circle): Seq[Point] = {
+    if(this isConcentric circle) Seq()
+    else this intersect radicalLine(circle)
+  }
   def isIntersect(circle: Circle): Boolean = Delta.lt(Point.ORIGIN distanceSqr circle.sp, this.normSqr + circle.range.normSqr)
 
   // ---- UpRet ----

@@ -9,10 +9,7 @@ import Delta._
 
 abstract class Dim2Factory[T <: Dim2 : ClassTag] {
   def apply(x: Double, y: Double): T
-  def apply(op: Dim2): T = op match {
-    case t: T => t
-    case dim2 => clone(dim2)
-  }
+  def apply(op: Dim2): T = clone(op)
   def clone(dim2: Dim2): T = apply(dim2.x, dim2.y)
 }
 

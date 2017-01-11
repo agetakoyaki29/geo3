@@ -94,7 +94,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
     // if align
     for(i <- indices)
       if(this.align(i))
-        if(!rect.contain(i, Point.ORIGIN)) return Seq()
+        if(!rect.slab(i).contain(Point.ORIGIN)) return Seq()
     // non align
     val times = rect.slabs.map{this.intersectTime(_).sorted}
     val inTime = times.map{_ apply 0}.max
@@ -107,7 +107,7 @@ class Dir protected (x: Double, y: Double) extends Point(x, y) {
     // if align
     for(i <- indices)
       if(this.align(i))
-        if(!rect.contain(i, Point.ORIGIN)) return false
+        if(!rect.slab(i).contain(Point.ORIGIN)) return false
     // non align
     val times = rect.slabs.map{this.intersectTime(_).sorted}
     val inTime = times.map{_ apply 0}.max
